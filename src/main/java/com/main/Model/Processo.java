@@ -4,9 +4,11 @@ import java.util.Random;
 
 public class Processo {
     private int id;
+    private String nome;
     private int prioridade;
     private int framesLimit;
-    private TempoUCP tempoUCP;
+    private int tempoUCP;
+    private Estado estado;
     private TipoProcesso tipoProcesso;
     
     private static final Random random = new Random();
@@ -22,6 +24,22 @@ public class Processo {
 
     public int getId() {
         return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getTempoUCP(){
+        return tempoUCP;
+    }
+
+    public void setTempoUCP(int ucp) {
+        this.tempoUCP = ucp;
     }
 
     public void setPrioridade(int prioridade){
@@ -59,7 +77,7 @@ public class Processo {
         IoBound
     }
 
-    public enum TempoUCP {
+    public enum Estado {
         Pronto,
         Execução
     }

@@ -16,6 +16,11 @@ public class Application {
             System.out.println("Adicionando processo "+ (i + 1) + ":");
             processos[i] = new Processo();
 
+            System.out.println("Escolha o nome do processo: ");
+            String nome = scanner.nextLine();
+            processos[i].setNome(nome);
+            scanner.nextLine();
+
             System.out.println("Digite a prioridade do processo (de 1 a 15) ");
             int prioridade = scanner.nextInt();
             processos[i].setPrioridade(prioridade);
@@ -26,9 +31,14 @@ public class Application {
             processos[i].setFramesLimit(framesLimit);
             scanner.nextLine();
 
+            System.out.println("Digite o tempo de ucp do processo");
+            int tempoUcp = scanner.nextInt();
+            processos[i].setTempoUCP(tempoUcp);
+            scanner.nextLine();
+
             System.out.println("Escolha o tipo do processo: 0 pra CPU Bound e 1 pra IO Bound");
             int tipoNum = scanner.nextInt();
-            if (tipoNum == 0){
+            if (tipoNum == 0) {
                 processos[i].setTipoProcesso(Processo.TipoProcesso.CpuBound);
             } else if (tipoNum == 1) {
                 processos[i].setTipoProcesso(Processo.TipoProcesso.IoBound);
@@ -36,13 +46,21 @@ public class Application {
                 throw new IllegalArgumentException("Tipo de processo inválido. Escolha 0 ou 1.");
             }
         }
-        System.out.println("\nProcessos adicionados:");
+
+        System.out.println("\nGerenciamento:");
+        int tempoTotalProcessamento = 0;
+
         for (Processo processo : processos) {
-            System.out.println("ID: " + processo.getId() + ", Prioridade: " + processo.getPrioridade() +
-                    ", Frames Limit: " + processo.getFramesLimit() +
-                    ", Tipo: " + processo.getTipoProcesso());
+            System.out.print(processo.getNome() + ": ");
+            for (int j = 0; j < processo.getTempoUCP(); j++) {
+                System.out.print("⬜");
+            }
+            System.out.println(" (" + processo.getTempoUCP() + " unidades de tempo)");
+
+            tempoTotalProcessamento += processo.getTempoUCP();
         }
 
+        System.out.println("Tempo total de processamento: " + tempoTotalProcessamento + " unidades de tempo");
         scanner.close();
     }
 }
