@@ -7,7 +7,6 @@ public class Processo {
     private int prioridade;
     private int framesLimit;
     private TempoUCP tempoUCP;
-
     private TipoProcesso tipoProcesso;
     
     private static final Random random = new Random();
@@ -19,6 +18,10 @@ public class Processo {
     private int generateRandomId() {
         // Gera um ID aleatório no intervalo de 1000000 a 9999999
         return random.nextInt(9000000) + 1000000; // 9000000 + 1000000 -> 1000000 até 9999999
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setPrioridade(int prioridade){
