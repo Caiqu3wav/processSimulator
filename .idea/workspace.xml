@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="45aa0214-8869-4813-bb5a-0db9a72df958" name="Changes" comment="apenas exibindo informações dos processos">
+    <list default="true" id="45aa0214-8869-4813-bb5a-0db9a72df958" name="Changes" comment="mostrando tempo real de processamento de processos e ordenando com base em prioridade">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/main/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/main/Model/Processo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/Model/Processo.java" afterDir="false" />
@@ -23,6 +23,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Caiqu3wav&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="d3893aae-c736-4959-a1aa-515957615be8" />
+        <option name="url" value="https://github.com/Caiqu3wav/processSimulator.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -102,12 +116,33 @@
       <option name="project" value="LOCAL" />
       <updated>1743002028244</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="mostrando tempo de cada processamento e tempo total">
+      <option name="closed" value="true" />
+      <created>1743017893298</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1743017893298</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="classe de processo finalizada" />
     <MESSAGE value="apenas exibindo informações dos processos" />
-    <option name="LAST_COMMIT_MESSAGE" value="apenas exibindo informações dos processos" />
+    <MESSAGE value="mostrando tempo de cada processamento e tempo total" />
+    <MESSAGE value="mostrando tempo real de processamento de processos e ordenando com base em prioridade" />
+    <option name="LAST_COMMIT_MESSAGE" value="mostrando tempo real de processamento de processos e ordenando com base em prioridade" />
   </component>
 </project>

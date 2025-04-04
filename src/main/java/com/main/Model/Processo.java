@@ -10,6 +10,16 @@ public class Processo {
     private int tempoUCP;
     private Estado estado;
     private TipoProcesso tipoProcesso;
+
+    private int tempoProcessamento;
+
+    public int getTempoProcessamento() {
+        return tempoProcessamento;
+    }
+
+    public void setTempoProcessamento(int tempoProcessamento) {
+        this.tempoProcessamento = tempoProcessamento;
+    }
     
     private static final Random random = new Random();
 
