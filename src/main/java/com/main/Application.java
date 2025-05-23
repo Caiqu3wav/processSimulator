@@ -1,5 +1,6 @@
 package com.main;
 import com.main.Model.Processo;
+import com.main.Escalonador;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -7,10 +8,19 @@ import java.util.Scanner;
 
 public class Application {
     public static void main(String[] args){
-        System.out.println("Bem vindo simulador de processos!");
         Scanner scanner = new Scanner(System.in);
 
         Scanner scannerNumbers = new Scanner(System.in);
+
+        System.out.println("Bem vindo simulador de processos!");
+        System.out.println("Escolha o algoritmo de escalonamento:");
+        System.out.println("1 - FIFO (First In First Out)");
+        System.out.println("2 - SJF (Shortest Job First)");
+        System.out.println("3 - Prioridades (Não-Preemptivo)");
+        System.out.println("4 - Round-Robin");
+
+        int escolhaAlgoritmo = scannerNumbers.nextInt();
+
         System.out.print("Quantos processos você deseja adicionar? ");
         int numProcessos = scannerNumbers.nextInt();
         scannerNumbers.nextLine();
@@ -21,87 +31,46 @@ public class Application {
             System.out.println("Adicionando processo "+ (i + 1) + ":");
             processos[i] = new Processo();
 
-            System.out.println("Escolha o nome do processo: ");
+            System.out.print("Nome: ");
             String nome = scanner.next();
             processos[i].setNome(nome);
 
-            System.out.println("Digite a prioridade do processo (de 1 a 15) ");
-            int prioridade = scannerNumbers.nextInt();
-            processos[i].setPrioridade(prioridade);
+            System.out.print("Prioridade (1-15): ");
+            processos[i].setPrioridade(scannerNumbers.nextInt());
 
-            System.out.println("Digite limite de frames do processo (de 1 a 5)");
-            int framesLimit = scanner.nextInt();
-            processos[i].setFramesLimit(framesLimit);
+            System.out.print("Frames Limit (1-5): ");
+            processos[i].setFramesLimit(scanner.nextInt());
 
-            System.out.println("Digite o tempo de ucp do processo");
-            int tempoUcp = scannerNumbers.nextInt();
-            processos[i].setTempoUCP(tempoUcp);
+            System.out.print("Tempo de UCP: ");
+            processos[i].setTempoUCP(scannerNumbers.nextInt());
 
-            scanner.nextLine();
-
-            System.out.println("Escolha o tipo do processo: 0 pra CPU Bound e 1 pra IO Bound");
+            System.out.print("Tipo (0 = CPU Bound, 1 = IO Bound): ");
             int tipoNum = scannerNumbers.nextInt();
-            if (tipoNum == 0) {
-                processos[i].setTipoProcesso(Processo.TipoProcesso.CpuBound);
-            } else if (tipoNum == 1) {
-                processos[i].setTipoProcesso(Processo.TipoProcesso.IoBound);
-            } else{
-                throw new IllegalArgumentException("Tipo de processo inválido. Escolha 0 ou 1.");
-            }
+            processos[i].setTipoProcesso(
+                    tipoNum == 0 ? Processo.TipoProcesso.CpuBound : Processo.TipoProcesso.IoBound
+            );
         }
 
-        Arrays.sort(processos, Comparator.comparingInt(Processo::getPrioridade));
-
-        System.out.println("\nGerenciamento:");
-        int tempoTotalProcessamento = 0;
-        int tempoDeEspera = 0;
-        int[] temposDeEsperas = new int[numProcessos];
-
-        int index = 0;
-
-        for (Processo processo : processos) {
-
-            temposDeEsperas[index] = tempoDeEspera;
-
-            System.out.print(processo.getNome() + ": ");
-            for (int j = 0; j < processo.getTempoUCP(); j++) {
-                System.out.print("⬜");
-            }
-
-            int tempoDeProcessamento = index > 0 ? processo.getTempoUCP() + processos[index - 1].getTempoProcessamento()
-                    : processo.getTempoUCP();
-            processos[index].setTempoProcessamento(tempoDeProcessamento);
-
-            System.out.println(" (" + processo.getTempoUCP() + " de UCP)" + " (" + tempoDeProcessamento + " de tempo de processamento)");
-
-            tempoTotalProcessamento += processo.getTempoUCP();
-            tempoDeEspera += processo.getTempoUCP();
-
-            index++;
+        switch (escolhaAlgoritmo) {
+            case 1:
+                Escalonador.fifo(processos);
+                break;
+            case 2:
+                Escalonador.sjf(processos);
+                break;
+            case 3:
+                Escalonador.prioridades(processos);
+                break;
+            case 4:
+                System.out.print("Digite o quantum (fatia de tempo): ");
+                int quantum = scannerNumbers.nextInt();
+                Escalonador.roundrobin(processos, quantum);
+                break;
+            default:
+                System.out.println("Opção inválida.");
         }
 
-        double mediaTempoDeEspera = (double)
-        Arrays.stream(temposDeEsperas).sum() / numProcessos;
 
-        int somaTempoProcessamento = 0;
-        for (Processo p : processos) {
-            somaTempoProcessamento += p.getTempoProcessamento();
-        }
-
-        double mediaTempoProcessamento = (double)
-        somaTempoProcessamento / numProcessos;
-
-        System.out.println("\nResumo dos Processos:");
-        for (Processo p : processos) {
-            System.out.println(p.getNome() +
-                    " | Prioridade: " + p.getPrioridade() +
-                    " | UCP: " + p.getTempoUCP() +
-                    " | Tempo de Processamento: " + p.getTempoProcessamento());
-        }
-
-        System.out.println("Tempo total de UCP: " + tempoTotalProcessamento + " unidades de tempo");
-        System.out.printf("Média do tempo de espera: %.2f unidades de tempo%n", mediaTempoDeEspera);
-        System.out.printf("Média do tempo de processamento: %.2f unidades de tempo%n", mediaTempoProcessamento);
         scanner.close();
     }
 }
